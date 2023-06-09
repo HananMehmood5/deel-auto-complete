@@ -15,6 +15,9 @@ const useProductFetcher = (): ReturnProps => {
   const [error, setError] = useState<string>();
 
   const getProducts = useCallback(async (query: string, limit = '8'): Promise<void> => {
+    if (!query) {
+      return
+    }
     const url = new URL(`${BASE_URL}${PRODUCTS_PATH}`);
     url.searchParams.append("search", query);
     url.searchParams.append("p", '1');
