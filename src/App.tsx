@@ -1,7 +1,8 @@
+import React from 'react';
 import AutoComplete from './components/AutoComplete';
 import './app.scss';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div>
       <header className='header'>
@@ -11,6 +12,6 @@ function App() {
       <AutoComplete />
     </div>
   );
-}
+};
 
 export default App;

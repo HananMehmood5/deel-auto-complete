@@ -2,9 +2,9 @@ import React from 'react';
 import './styles.scss';
 
 interface Props {
-  query: string;
-  name: string;
-  focused: boolean;
+  query: string
+  name: string
+  focused: boolean
 }
 
 const ListItem: React.FC<Props> = ({ query, name, focused }) => {
@@ -14,11 +14,9 @@ const ListItem: React.FC<Props> = ({ query, name, focused }) => {
   return (
     <li className={`list-item ${focused ? 'focused' : ''}`}>
         {parts.map((part, index) =>
-          regex.test(part) ? (
-            <strong key={index}>{part}</strong>
-          ) : (
-            <span key={index}>{part}</span>
-          )
+          regex.test(part)
+            ? <strong key={index}>{part}</strong>
+            : <span key={index}>{part}</span>
         )}
     </li>
   );

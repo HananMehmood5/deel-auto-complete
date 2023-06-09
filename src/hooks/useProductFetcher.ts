@@ -1,14 +1,14 @@
 import { useState, useCallback } from 'react';
-import { BASE_URL, PRODUCTS_PATH } from "utils/config";
-import type { Product } from "utils/types"
+import { BASE_URL, PRODUCTS_PATH } from 'utils/config';
+import type { Product } from 'utils/types';
 
-type ReturnProps = {
-  getProducts: (query: string) => Promise<void>;
-  setLoading: (value: boolean) => void;
-  loading: boolean;
-  products: Product[];
-  error?: string;
-}
+interface ReturnProps {
+  getProducts: (query: string) => Promise<void>
+  setLoading: (value: boolean) => void
+  loading: boolean
+  products: Product[]
+  error?: string
+};
 
 const useProductFetcher = (): ReturnProps => {
   const [loading, setLoading] = useState(false);
@@ -18,12 +18,12 @@ const useProductFetcher = (): ReturnProps => {
   const getProducts = useCallback(async (query: string, limit = '8'): Promise<void> => {
     if (!query) {
       setData([]);
-      return
+      return;
     }
     const url = new URL(`${BASE_URL}${PRODUCTS_PATH}`);
-    url.searchParams.append("search", query);
-    url.searchParams.append("p", '1');
-    url.searchParams.append("limit", limit);
+    url.searchParams.append('search', query);
+    url.searchParams.append('p', '1');
+    url.searchParams.append('limit', limit);
     try {
       setLoading(true);
       const response = await fetch(url.toString());
@@ -31,10 +31,11 @@ const useProductFetcher = (): ReturnProps => {
       setData(products);
       setError('');
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error fetching products:', error);
       setError(String(error));
       setData([]);
-    } finally { 
+    } finally {
       setLoading(false);
     }
   }, []);

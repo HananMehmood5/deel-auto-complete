@@ -1,7 +1,7 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, type ChangeEvent } from 'react';
 import debounce from 'utils/debounce';
-import useProductFetcher from "hooks/useProductFetcher"
-import List from "components/List"
+import useProductFetcher from 'hooks/useProductFetcher';
+import List from 'components/List';
 import './styles.scss';
 
 const AutoComplete: React.FC = () => {
@@ -10,7 +10,7 @@ const AutoComplete: React.FC = () => {
 
   const debouncedGetProducts = debounce(getProducts, 200);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setInputValue(value);
     if (value) setLoading(true);
