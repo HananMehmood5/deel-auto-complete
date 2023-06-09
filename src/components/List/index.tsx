@@ -47,19 +47,19 @@ const List: React.FC<Props> = ({ query, loading, error, products }) => {
   }
 
   return (
-        <ul className={`list-container ${statusText ? 'status' : ''}`}>
-            {statusText && (
-                <p className='status-text'>{statusText}</p>
-            )}
-            {!statusText && products.map((product, index) => (
-                <ListItem
-                    key={product.id}
-                    name={product.name}
-                    query={query}
-                    focused={index === focusedIndex}
-                />
-            ))}
-        </ul>
+    <ul className={`list-container ${statusText ? 'status' : ''}`}>
+        {statusText && (
+          <p className='status-text'>{statusText}</p>
+        )}
+        {!statusText && products.map((product, index) => (
+          <ListItem
+            key={product.id}
+            name={product.name}
+            query={query}
+            focused={index === focusedIndex}
+          />
+        ))}
+    </ul>
   );
 };
 

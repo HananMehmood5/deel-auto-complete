@@ -1,3 +1,5 @@
+@import "../../styles/base.scss";
+// Styles for the AutoComplete
 .auto-complete {
     width: 100%;
     display: flex;
@@ -29,7 +31,7 @@
 .search-input {
     padding: 8px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid $grey-200;
     border-radius: 4px;
     width: 100%;
     outline: none;
