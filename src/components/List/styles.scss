@@ -1,0 +1,32 @@
+.autocomplete-options {
+    list-style-type: none;
+    padding: 0;
+    margin: 4px 0;
+}
+
+.autocomplete-option {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.autocomplete-option:hover {
+    background-color: #f5f5f5;
+}
+
+.autocomplete-option span {
+    font-weight: bold;
+}
+
+.autocomplete-option strong {
+    color: #007bff;
+}
+
+.loading-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 8px;
+}

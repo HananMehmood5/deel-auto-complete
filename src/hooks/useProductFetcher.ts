@@ -1,10 +1,6 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { BASE_URL, PRODUCTS_PATH } from "utils/config";
-
-export interface Product {
-  id: number;
-  name: string;
-}
+import type { Product } from "utils/types"
 
 type ReturnProps = {
   getProducts: (query: string) => Promise<void>;
@@ -18,13 +14,14 @@ const useProductFetcher = (): ReturnProps => {
   const [data, setData] = useState<Product[]>([]);
   const [error, setError] = useState<string>();
 
-  const getProducts = useCallback(async (query: string): Promise<void> => {
-    debugger;
-    setLoading(true);
+  const getProducts = useCallback(async (query: string, limit = '8'): Promise<void> => {
+    const url = new URL(`${BASE_URL}${PRODUCTS_PATH}`);
+    url.searchParams.append("search", query);
+    url.searchParams.append("p", '1');
+    url.searchParams.append("limit", limit);
     try {
-      const url = new URL(`${BASE_URL}${PRODUCTS_PATH}`);
-      url.searchParams.append()
-      const response = await fetch(`?query=${query}`);
+      setLoading(true);
+      const response = await fetch(url.toString());
       const products = await response.json();
       setData(products);
     } catch (error) {
@@ -35,7 +32,7 @@ const useProductFetcher = (): ReturnProps => {
     }
   }, []);
 
-  return useMemo(() => ({ getProducts, loading, products: data, error }), [getProducts, loading, data, error]);
+  return { getProducts, loading, products: data, error };
 };
 
 export default useProductFetcher;
