@@ -2,20 +2,26 @@ import React from 'react';
 import './styles.scss';
 
 interface Props {
-    query: string;
-    name: string;
+  query: string;
+  name: string;
+  focused: boolean;
 }
 
-const List: React.FC<Props> = ({ query, name }) => {
+const ListItem: React.FC<Props> = ({ query, name, focused }) => {
+  const regex = new RegExp(`(${query})`, 'gi');
+  const parts = name.split(regex);
+
   return (
-    <li className="autocomplete-option">
-        <span>
-        {name.substring(0, query.length)}
-        <strong>{name.substring(query.length)}</strong>
-        </span>
+    <li className={`list-item ${focused ? 'focused' : ''}`}>
+        {parts.map((part, index) =>
+          regex.test(part) ? (
+            <strong key={index}>{part}</strong>
+          ) : (
+            <span key={index}>{part}</span>
+          )
+        )}
     </li>
-        
   );
 };
 
-export default List;
+export default ListItem;

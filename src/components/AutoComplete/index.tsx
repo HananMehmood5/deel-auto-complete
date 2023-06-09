@@ -2,17 +2,18 @@ import React, { useState, ChangeEvent } from 'react';
 import debounce from 'utils/debounce';
 import useProductFetcher from "hooks/useProductFetcher"
 import List from "components/List"
-import './styles.css';
+import './styles.scss';
 
 const AutoComplete: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
-  const { loading, products, error, getProducts } = useProductFetcher();
+  const { loading, products, error, getProducts, setLoading } = useProductFetcher();
 
-  const debouncedGetProducts = debounce(getProducts, 500);
+  const debouncedGetProducts = debounce(getProducts, 200);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
+    if (value) setLoading(true);
     debouncedGetProducts(value);
   };
 
@@ -24,7 +25,7 @@ const AutoComplete: React.FC = () => {
           value={inputValue}
           onChange={handleInputChange}
           placeholder="Type to search..."
-          className={`autocomplete-input`}
+          className={`search-input ${inputValue ? 'has-value' : ''}`}
         />
         <List query={inputValue} loading={loading} error={error} products={products}/>
       </div>

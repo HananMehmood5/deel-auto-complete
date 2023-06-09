@@ -4,6 +4,7 @@ import type { Product } from "utils/types"
 
 type ReturnProps = {
   getProducts: (query: string) => Promise<void>;
+  setLoading: (value: boolean) => void;
   loading: boolean;
   products: Product[];
   error?: string;
@@ -16,6 +17,7 @@ const useProductFetcher = (): ReturnProps => {
 
   const getProducts = useCallback(async (query: string, limit = '8'): Promise<void> => {
     if (!query) {
+      setData([]);
       return
     }
     const url = new URL(`${BASE_URL}${PRODUCTS_PATH}`);
@@ -27,15 +29,17 @@ const useProductFetcher = (): ReturnProps => {
       const response = await fetch(url.toString());
       const products = await response.json();
       setData(products);
+      setError('');
     } catch (error) {
       console.error('Error fetching products:', error);
       setError(String(error));
+      setData([]);
     } finally { 
       setLoading(false);
     }
   }, []);
 
-  return { getProducts, loading, products: data, error };
+  return { getProducts, setLoading, loading, products: data, error };
 };
 
 export default useProductFetcher;

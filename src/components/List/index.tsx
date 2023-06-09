@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import type { Product } from "utils/types"
-import Placeholder from 'components/Placeholder';
 import ListItem from "./Item";
 import './styles.scss';
 
@@ -12,34 +11,53 @@ interface Props {
 }
 
 const List: React.FC<Props> = ({ query, loading, error, products }) => {
-    if (loading) { 
-        return (
-            <div className='list-container'>
-                <p>Loading...</p>
-            </div>
-        )
-    }
+    const [focusedIndex, setFocusedIndex] = useState(-1);
 
-    if (error) {
-        return (
-            <div className='list-container'>
-                <p>{error}</p>
-            </div>
-        );
-    }
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            setFocusedIndex(prevIndex => Math.max(prevIndex - 1, 0));
+        } else if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            setFocusedIndex(prevIndex => Math.min(prevIndex + 1, products.length - 1));
+        }
+        };
 
-    if (!products.length && query.length > 0) { 
-        return (
-            <div className='list-container'>
-                <p>No results found for "{query}"</p>
-            </div>
-        )
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [products.length]);
+
+    const statusText = useMemo(() => {
+        let text = "";
+        if (loading) {
+            text = "Loading...";
+        } else if (error) {
+            text = error;
+        } else if (!products.length && query.length > 0) { 
+            text = `No results found for the query "${query}". Try "Gloves"? 🤔`
+        }
+        return text;
+    }, [error, loading, products.length, query])
+
+    if (!query) { 
+        return <></>;
     }
 
     return (
-        <ul className="autocomplete-options">
-            {products.map(({ id, name }) => (
-                <ListItem key={id} name={name} query={query}/>
+        <ul className={`list-container ${statusText ? 'status' : ''}`}>
+            {statusText && (
+                <p className='status-text'>{statusText}</p>
+            )}
+            {!statusText && products.map((product, index) => (
+                <ListItem
+                    key={product.id}
+                    name={product.name}
+                    query={query}
+                    focused={index === focusedIndex}
+                />
             ))}
         </ul>
   );
