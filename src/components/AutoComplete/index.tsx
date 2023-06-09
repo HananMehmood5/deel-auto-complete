@@ -8,13 +8,12 @@ const AutoComplete: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const { loading, products, error, getProducts } = useProductFetcher();
 
+  const debouncedGetProducts = debounce(getProducts, 500);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-  
-    debounce((query: string) => {
-      getProducts(query);
-    }, 500)(value)
+    debouncedGetProducts(value);
   };
 
   return (
