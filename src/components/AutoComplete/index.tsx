@@ -19,7 +19,7 @@ const AutoComplete: React.FC = () => {
 
   return (
     <div className='auto-complete'>
-      <div className='auto-complete__wrapper'>
+      <div className='auto-complete-wrapper'>
         <input
           type="text"
           value={inputValue}

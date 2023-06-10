@@ -20,10 +20,12 @@ const useProductFetcher = (): ReturnProps => {
       setData([]);
       return;
     }
+
     const url = new URL(`${BASE_URL}${PRODUCTS_PATH}`);
     url.searchParams.append('search', query);
     url.searchParams.append('p', '1');
     url.searchParams.append('limit', limit);
+
     try {
       setLoading(true);
       const response = await fetch(url.toString());
