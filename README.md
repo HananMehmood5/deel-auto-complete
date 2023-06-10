@@ -4,22 +4,23 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 `AutoComplete` is designed and developed supporting all the possible cases:
 
-- There is no query, So there is no data -> Handled ✅
-- There is query, buy there is loading state -> Handled ✅
-- Fetch request has returned data -> Handled ✅
-- Fetch request has returned no data -> Handled ✅
-- Fetch request has returned error -> Handled ✅
+- Empty input ~ no data -> Handled ✅
+- Some query on input ~ loading -> Handled ✅
+- Some query on input ~ matching records -> Handled ✅
+- Some query on input ~ no matching records -> Handled ✅
+- Some query on input ~ error somewhere -> Handled ✅
 
 Besides it, it is done efficiently by
 
-- Using the debounce approach saving network requests
-- Using extensible and scale-able code patterns
+- Using the debounce approach saving network requests ✨
+- Using extensible and scale-able code patterns ✨
 
-Further, it is provided good UX by:
+Further, it is providing good UX by:
 
-- Enabling Keyboard navigation
-- Highlighting the query term in the list and handling all the cases
-- Mobile first approach in design
+- Enabling Keyboard navigation ✨
+- Mobile first approach in design ✨
+
+---
 
 ## Available Scripts
 
