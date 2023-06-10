@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Some query on input ~ no matching records -> Handled ✅
 - Some query on input ~ error somewhere -> Handled ✅
 
-Besides it, it is done efficiently by
+Besides it, it is done efficiently by:
 
 - Using the debounce approach saving network requests ✨
 - Using extensible and scale-able code patterns ✨
