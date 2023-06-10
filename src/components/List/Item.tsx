@@ -12,7 +12,7 @@ const ListItem: React.FC<Props> = ({ query, name, focused }) => {
   const parts = name.split(regex);
 
   return (
-    <li className={`list-item ${focused ? 'focused' : ''}`}>
+    <li className={`list-item ${focused ? 'focused' : ''}`} role='listitem'>
         {parts.map((part, index) =>
           regex.test(part)
             ? <strong key={index}>{part}</strong>

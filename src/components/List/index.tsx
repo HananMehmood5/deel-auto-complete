@@ -47,9 +47,9 @@ const List: React.FC<Props> = ({ query, loading, error, products }) => {
   }
 
   return (
-    <ul className={`list-container ${statusText ? 'status' : ''}`}>
+    <ul className={`list-container ${statusText ? 'status' : ''}`} role='list'>
         {statusText && (
-          <p className='status-text'>{statusText}</p>
+          <p className='status-text' role='status'>{statusText}</p>
         )}
         {!statusText && products.map((product, index) => (
           <ListItem
