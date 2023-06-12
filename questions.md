@@ -81,15 +81,15 @@ CSS selectors often rely on a parent element to target specific child elements. 
   // HOC
 
   const withAuth = (Component) => {
-  const WithAuth = {
+    const WithAuth = {
       // Add authentication logic here
 
       render() {
-      return <Component {...this.props} />;
+        return <Component {...this.props} />;
       }
-  }
+    }
 
-  return WithAuth;
+    return WithAuth;
   };
 
 
@@ -136,9 +136,9 @@ CSS selectors often rely on a parent element to target specific child elements. 
       ...
       const response = await fetch(url.toString());
       const products = await response.json();
-      } catch (error) {
+   } catch (error) {
       console.error('Error fetching products:', error);
-      }
+   }
   ```
 
 ---
