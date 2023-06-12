@@ -34,7 +34,7 @@ Solution would be to use `useContext` with `FunctionalComponent` for better cohe
 
 - `Using Event Listeners`:
 
-  We can defined the event listeners in parent and emit the events in the child. In this way, we will be to pass data from child to parent.
+  We can define the event listeners in parent and emit the events in the child. In this way, we will be to pass data from child to parent.
 
 ---
 
