@@ -42,11 +42,11 @@ Solution would be to use `useContext` with `FunctionalComponent` for better cohe
 
 - Using the `shouldComponentUpdate` lifecycle method:
 
-  We can use the `shouldComponentUpdate` method to determine whether the component should be updated or not. We can evaluate it using computing certain conditions tailored to the component.
+  We can use the `shouldComponentUpdate` method to determine whether the component should be updated or not based upon `true` or `fasle` response. We can evaluate it using computing certain conditions tailored to the component.
 
 - Using `React.memo` (for functional components) or `React.PureComponent` (for class components):
 
-  We can HOCs provided by React that perform a shallow comparison of props and prevent re-rendering if the props have not changed.
+  We can use HOCs provided by React that perform a shallow comparison of props and prevent re-rendering if the props have not changed.
 
 ---
 
