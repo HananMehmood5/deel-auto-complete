@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Product } from 'utils/types';
 import ListItem from './Item';
+import { getStatusText } from './utils';
 import './styles.scss';
 
 interface Props {
@@ -30,21 +31,11 @@ const List: React.FC<Props> = ({ query, loading, error, products }) => {
     };
   }, [products.length]);
 
-  const statusText = useMemo(() => {
-    let text = '';
-    if (loading) {
-      text = 'Loading...';
-    } else if (error) {
-      text = error;
-    } else if ((products.length === 0) && query.length > 0) {
-      text = `No results found for the query "${query}". Try "Gloves"? 🤔`;
-    }
-    return text;
-  }, [error, loading, products.length, query]);
-
   if (!query) {
     return <></>;
   }
+
+  const statusText = getStatusText(error, loading, products.length, query);
 
   return (
     <ul className={`list-container ${statusText ? 'status' : ''}`} role='list'>
