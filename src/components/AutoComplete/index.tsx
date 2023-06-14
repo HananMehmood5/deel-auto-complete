@@ -1,4 +1,4 @@
-import React, { useState, type ChangeEvent } from 'react';
+import React, { useState, useCallback, type ChangeEvent } from 'react';
 import debounce from 'utils/debounce';
 import useProductFetcher from 'hooks/useProductFetcher';
 import List from 'components/List';
@@ -8,7 +8,10 @@ const AutoComplete: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const { loading, products, error, getProducts, setLoading } = useProductFetcher();
 
-  const debouncedGetProducts = debounce(getProducts, 200);
+  const debouncedGetProducts = useCallback(
+    debounce(getProducts, 300),
+    []
+  );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;

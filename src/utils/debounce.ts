@@ -1,9 +1,9 @@
-let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
 const debounce = <T extends (...args: any[]) => void | Promise<void>>(
   operation: T,
   delay: number
 ): ((...args: Parameters<T>) => void) => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
   return (...args: Parameters<T>) => {
     if (timeoutId != null) {
       clearTimeout(timeoutId);

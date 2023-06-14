@@ -44,7 +44,7 @@ describe('AutoComplete', () => {
 
     await waitFor(() => {
     //   expect(screen.getAllByRole('list')).toHaveLength(1);
-      expect(screen.getByRole('status').innerHTML).toContain('o results found for the query "Ball". Try "Gloves"? 🤔');
+      expect(screen.getByRole('status').innerHTML).toContain('No results found for the query "Ball". Try "Gloves"? 🤔');
     });
   });
 
@@ -68,6 +68,52 @@ describe('AutoComplete', () => {
     await waitFor(() => {
       expect(screen.getAllByRole('list')).toHaveLength(1);
       expect(screen.getByRole('listitem').innerHTML).toContain('<span>B</span><strong>all</strong><span>s</span>');
+    });
+  });
+
+  test('Check with mocks: Searching for a existing product with initials at the start', async () => {
+    mockedUseProductFetcher.mockReturnValue({
+      loading: false,
+      products: [{
+        id: 1,
+        name: 'Balls'
+      }],
+      error: undefined,
+      getProducts: jest.fn(),
+      setLoading: jest.fn()
+    });
+
+    render(<AutoComplete />);
+    const inputElement: HTMLInputElement = screen.getByPlaceholderText('Type to search...');
+
+    fireEvent.change(inputElement, { target: { value: 'Bal' } });
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('list')).toHaveLength(1);
+      expect(screen.getByRole('listitem').innerHTML).toContain('<strong>Bal</strong><span>ls</span>');
+    });
+  });
+
+  test('Check with mocks: Searching for a existing product with initials at the end', async () => {
+    mockedUseProductFetcher.mockReturnValue({
+      loading: false,
+      products: [{
+        id: 1,
+        name: 'Balls'
+      }],
+      error: undefined,
+      getProducts: jest.fn(),
+      setLoading: jest.fn()
+    });
+
+    render(<AutoComplete />);
+    const inputElement: HTMLInputElement = screen.getByPlaceholderText('Type to search...');
+
+    fireEvent.change(inputElement, { target: { value: 'lls' } });
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('list')).toHaveLength(1);
+      expect(screen.getByRole('listitem').innerHTML).toContain('<span>Ba</span><strong>lls</strong>');
     });
   });
 });
